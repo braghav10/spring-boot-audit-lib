@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+	
+	<appender name="consoleAppender"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder
+			class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+			<providers>
+				<pattern>
+					<pattern>
+						{
+						"time_stamp"	: "%date{ISO8601}",
+						"level"			: "%level",
+						"message"		: "%message",
+						"service"		: "%X{service}",
+						"endpoint"      : "%X{request_path}",
+						"api_request"	: "%X{apiRequest}",
+						"log_type" 		: "%X{log_type}",
+						"api_response"	: "%X{apiResponse}",
+						"total_time" 	: "%X{total_time}" ,
+						"ext_system" 	: "%X{ext_system}",
+						"ext_api_request" : "%X{ext_apiRequest}",
+						"ext_api_response": "%X{ext_apiResponse}",
+						"ext_total_time"  : "%X{ext_total_time}",
+						"correlationId"   : "%X{correlationId}",
+						"service_identifier": "%X{service_identifier}",
+						"endpoint_identifier" : "%X{endpoint_identifier}"
+						
+						}
+					</pattern>
+				</pattern>
+			</providers>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="consoleAppender" />
+	</root>
+</configuration> 
